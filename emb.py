@@ -19,17 +19,17 @@ class EmbeddingWithPosition(nn.Module):
     def __init__(self, vocab_size, emb_size, dropout=0.3, seq_max_len=5000):
         super().__init__()
         self.seq_emb = nn.Embedding(vocab_size, emb_size)
-        print(self.seq_emb)
+        # print(self.seq_emb)
         position_idx = torch.arange(0, seq_max_len, dtype=torch.float).unsqueeze(-1)
-        print(position_idx.shape)
+        # print(position_idx.shape)
         
         position_emb_fill = position_idx * torch.exp(- torch.arange(0, emb_size, 2) * math.log(10000.0) / emb_size)
-        print(position_emb_fill.shape)
+        # print(position_emb_fill.shape)
         pos_encoding = torch.zeros(seq_max_len, emb_size)
         pos_encoding[:, 0::2] = torch.sin(position_emb_fill)
         pos_encoding[:, 1::2] = torch.cos(position_emb_fill)
-        print(pos_encoding.shape)
-        print(pos_encoding)
+        # print(pos_encoding.shape)
+        # print(pos_encoding)
         self.register_buffer('pos_encoding', pos_encoding)
         # self.pos_encoding = pos_encoding
 

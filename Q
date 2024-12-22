@@ -4,3 +4,4 @@
 4. 为什么在 encoder 中，需要进行两次 addnorm 操作？
 5. 为什么在 decoder里面要先把 encoder的输出作为kv，然后q用输入词生成的
 6. 为什么decoder要先做一个 masked multihead attention？
+7. 为什么decode_block里面的两个attn是一样的vsize                

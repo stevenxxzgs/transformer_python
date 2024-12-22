@@ -1,2 +1,7 @@
 corpus.en_ru.1m.en
 corpus.en_ru.1m.ru
+knowledge
+interview
+checkpoints
+softmax_test.py
+.gitignore

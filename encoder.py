@@ -20,7 +20,7 @@ class Encoder(nn.Module):
         pad_mask = pad_mask.to(DEVICE)
         x = self.emb(x) # 所以这里要emb
         for block in self.blocks:
-            x = block(x, pad_mask)
+            x = block(key_value=x, query=x, attn_mask=pad_mask)
         return x
 
 if __name__ == '__main__':

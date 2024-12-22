@@ -78,6 +78,9 @@ class Vocabulary:
         # 处理单个列表的情况
         return [self.stoi.get(token, self.stoi[UNK_SYM]) for token in tokens_list]
 
+    def lookup_tokens(self, ids):
+        return [self.itos[id] for id in ids]
+
 en_vocab = Vocabulary()
 ru_vocab = Vocabulary()
 en_vocab.build_vocab(en_token)

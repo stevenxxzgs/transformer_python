@@ -25,14 +25,12 @@ class EncoderBlock(nn.Module):
         )
         self.addnorm2 = nn.LayerNorm(emb_size)
 
-    def forward(self, x, attn_mask):
-        attn_result = self.multihead_attn(x, attn_mask)
-        z = self.z_linear(attn_result)
-        z = x + z
-        z = self.addnorm1(z)
-        f_result = self.feedforward(z)
-        z = z + f_result
-        z = self.addnorm2(z)
+    def forward(self, key_value, query, attn_mask):
+        z = self.multihead_attn(key_value=key_value, query=query, attn_mask=attn_mask)
+        z = self.z_linear(z)
+        output1 = self.addnorm1(key_value + z)
+        z = self.feedforward(output1)
+        z = self.addnorm2(z + output1)
         return z
 
 if __name__ == '__main__':
@@ -50,5 +48,5 @@ if __name__ == '__main__':
 
     encoder_result = emb_result
     for i in range(6):
-        encoder_result = encoder_block[i](encoder_result, attn_mask)
+        encoder_result = encoder_block[i](key_value=encoder_result, query=encoder_result, attn_mask=attn_mask)
     print(encoder_result.size())
